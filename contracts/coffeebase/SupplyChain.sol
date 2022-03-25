@@ -66,12 +66,6 @@ contract SupplyChain is Ownable{
   event Received(uint upc);
   event Purchased(uint upc);
 
-  // Define a modifer that checks to see if msg.sender == owner of the contract
-  modifier onlyOwner() {
-    require(msg.sender == owner());
-    _;
-  }
-
   // Define a modifer that verifies the Caller
   modifier verifyCaller (address _address) {
     require(msg.sender == _address); 
@@ -89,7 +83,7 @@ contract SupplyChain is Ownable{
     _;
     uint _price = items[_upc].productPrice;
     uint amountToReturn = msg.value - _price;
-    items[_upc].consumerID.transfer(amountToReturn);
+    payable(items[_upc].consumerID).transfer(amountToReturn);
   }
 
   // Define a modifier that checks if an item.state of a upc is Harvested
@@ -143,7 +137,7 @@ contract SupplyChain is Ownable{
   // In the constructor set 'owner' to the address that instantiated the contract
   // and set 'sku' to 1
   // and set 'upc' to 1
-  constructor() public payable {
+  constructor() payable {
     sku = 1;
     upc = 1;
   }
@@ -151,18 +145,24 @@ contract SupplyChain is Ownable{
   // Define a function 'kill' if required
   function kill() public {
     if (msg.sender == owner()) {
-      selfdestruct(owner());
+      selfdestruct(payable(owner()));
     }
   }
 
   // Define a function 'harvestItem' that allows a farmer to mark an item 'Harvested'
-  function harvestItem(uint _upc, address _originFarmerID, string _originFarmName, string _originFarmInformation, string  _originFarmLatitude, string  _originFarmLongitude, string  _productNotes) public 
+  function harvestItem(uint _upc, 
+    address _originFarmerID, 
+    string memory _originFarmName, 
+    string memory _originFarmInformation, 
+    string memory _originFarmLatitude, 
+    string memory _originFarmLongitude, 
+    string memory _productNotes) public 
   {
     // Add the new item as part of Harvest
     Item memory newItem = Item({ 
       sku: sku,
       upc: _upc,  
-      ownerID: msg.sender,
+      ownerID: _originFarmerID,
       originFarmerID: _originFarmerID,
       originFarmName: _originFarmName,
       originFarmInformation: _originFarmInformation,
@@ -227,7 +227,7 @@ contract SupplyChain is Ownable{
     items[_upc].itemState = State.Sold;
     
     // Transfer money to farmer
-
+    payable(items[_upc].originFarmerID).transfer(items[_upc].productPrice);
     
     // emit the appropriate event
     emit Sold(_upc);
@@ -283,10 +283,10 @@ contract SupplyChain is Ownable{
   uint    itemUPC,
   address ownerID,
   address originFarmerID,
-  string  originFarmName,
-  string  originFarmInformation,
-  string  originFarmLatitude,
-  string  originFarmLongitude
+  string  memory originFarmName,
+  string  memory originFarmInformation,
+  string  memory originFarmLatitude,
+  string  memory originFarmLongitude
   ) 
   {
   // Assign values to the 8 parameters
@@ -318,7 +318,7 @@ contract SupplyChain is Ownable{
   uint    itemSKU,
   uint    itemUPC,
   uint    productID,
-  string  productNotes,
+  string memory productNotes,
   uint    productPrice,
   uint    itemState,
   address distributorID,
