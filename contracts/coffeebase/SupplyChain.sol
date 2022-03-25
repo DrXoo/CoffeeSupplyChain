@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity >=0.4.24;
+pragma solidity >=0.5.0;
 
 import "./../coffeecore/Ownable.sol";
 
@@ -79,11 +79,12 @@ contract SupplyChain is Ownable{
   }
   
   // Define a modifier that checks the price and refunds the remaining balance
-  modifier checkValue(uint _upc) {
-    _;
+  modifier checkValue(uint _upc)  {
     uint _price = items[_upc].productPrice;
     uint amountToReturn = msg.value - _price;
-    payable(items[_upc].consumerID).transfer(amountToReturn);
+    address payable toRefund = address(uint160(msg.sender));
+    toRefund.transfer(amountToReturn);
+    _;
   }
 
   // Define a modifier that checks if an item.state of a upc is Harvested
@@ -137,7 +138,7 @@ contract SupplyChain is Ownable{
   // In the constructor set 'owner' to the address that instantiated the contract
   // and set 'sku' to 1
   // and set 'upc' to 1
-  constructor() payable {
+  constructor() public payable {
     sku = 1;
     upc = 1;
   }
@@ -145,7 +146,8 @@ contract SupplyChain is Ownable{
   // Define a function 'kill' if required
   function kill() public {
     if (msg.sender == owner()) {
-      selfdestruct(payable(owner()));
+      address payable owner = address(uint160(owner()));
+      selfdestruct(owner);
     }
   }
 
@@ -227,7 +229,8 @@ contract SupplyChain is Ownable{
     items[_upc].itemState = State.Sold;
     
     // Transfer money to farmer
-    payable(items[_upc].originFarmerID).transfer(items[_upc].productPrice);
+    address payable payableFarmerId = address(uint160(items[_upc].originFarmerID));
+    payableFarmerId.transfer(items[_upc].productPrice);
     
     // emit the appropriate event
     emit Sold(_upc);
