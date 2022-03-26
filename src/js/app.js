@@ -100,6 +100,11 @@ App = {
     initSupplyChain: function () {
         /// Source the truffle compiled smart contracts
         var jsonSupplyChain='../../build/contracts/SupplyChain.json';
+        var jsonFarmerRole='../../build/contracts/FarmerRole.json';
+        var jsonDistributorRole='../../build/contracts/DistributorRole.json';
+        var jsonRetailerRole='../../build/contracts/RetailerRole.json';
+        var jsonConsumerRole='../../build/contracts/ConsumerRole.json';
+
         
         /// JSONfy the smart contracts
         $.getJSON(jsonSupplyChain, function(data) {
@@ -112,6 +117,30 @@ App = {
             App.fetchItemBufferTwo();
             App.fetchEvents();
 
+        });
+
+        $.getJSON(jsonFarmerRole, function(data) {
+            console.log('data',data);
+            App.contracts.FarmerRole = TruffleContract(data);
+            App.contracts.FarmerRole.setProvider(App.web3Provider);
+        });
+
+        $.getJSON(jsonDistributorRole, function(data) {
+            console.log('data',data);
+            App.contracts.DistributorRole = TruffleContract(data);
+            App.contracts.DistributorRole.setProvider(App.web3Provider);
+        });
+
+        $.getJSON(jsonRetailerRole, function(data) {
+            console.log('data',data);
+            App.contracts.RetailerRole = TruffleContract(data);
+            App.contracts.RetailerRole.setProvider(App.web3Provider);
+        });
+
+        $.getJSON(jsonConsumerRole, function(data) {
+            console.log('data',data);
+            App.contracts.ConsumerRole = TruffleContract(data);
+            App.contracts.ConsumerRole.setProvider(App.web3Provider);
         });
 
         return App.bindEvents();
@@ -160,7 +189,78 @@ App = {
             case 10:
                 return await App.fetchItemBufferTwo(event);
                 break;
+            case 11:
+                return await App.tryAddRole($("#userID").val());
+                break;                
             }
+    },
+
+    tryAddRole: function(id) {
+        var selectedRole = $("#roles").val();
+        console.log(web3.utils.isAddress(id));
+        var test = Web3.utils.toChecksumAddress(id);
+        console.log(test);
+
+        switch(selectedRole) {
+            case "farmer":
+                App.contracts.FarmerRole.deployed().then(instance => {
+                    instance.isFarmer(id).then(isFarmer => {
+                        if(!isFarmer) {
+                            $("#role-info").text("User Id doesn't have farmer role, adding it...");
+                            instance.addFarmer(id, { from: App.metamaskAccountID })
+                                .then(() => $("#role-info").text("User Id now has farmer role"))
+                                .catch(err => console.log(err));
+                        } else {
+                            $("#role-info").text("User Id has already farmer role");
+                        }
+                        console.log(isFarmer);
+                        
+                    })
+                });
+                break;
+            case "distributor":
+                App.contracts.DistributorRole.deployed().then(instance => {
+                    instance.isDistributor(id).then(isDistributor => {
+                        if(!isDistributor) {
+                            $("#role-info").text("User Id doesn't have distributor role, adding it...");
+                            instance.addDistributor(id, { from: App.metamaskAccountID })
+                                .then(() => $("#role-info").text("User Id now has distributor role"))
+                                .catch(err => console.log(err));
+                        } else {
+                            $("#role-info").text("User Id has already distributor role");
+                        }
+                    })
+                });
+                break;
+            case "retailer":
+                App.contracts.RetailerRole.deployed().then(instance => {
+                    instance.isRetailer(id).then(isRetailer => {
+                        if(!isRetailer) {
+                            $("#role-info").text("User Id doesn't have retailer role, adding it...");
+                            instance.addRetailer(id, { from: App.metamaskAccountID })
+                                .then(() => $("#role-info").text("User Id now has retailer role"))
+                                .catch(err => console.log(err));
+                        } else {
+                            $("#role-info").text("User Id has already retailer role");
+                        }                        
+                    })
+                });
+                break;
+            case "consumer":
+                App.contracts.ConsumerRole.deployed().then(instance => {
+                    instance.isConsumer(id).then(isConsumer => {
+                        if(!isConsumer) {
+                            $("#role-info").text("User Id doesn't have consumer role, adding it...");
+                            instance.addConsumer(id, { from: App.metamaskAccountID })
+                                .then(() => $("#role-info").text("User Id now has consumer role"))
+                                .catch(err => console.log(err));
+                        } else {
+                            $("#role-info").text("User Id has already consumer role");
+                        }                        
+                    })
+                });
+                break;
+        }
     },
 
     harvestItem: function(event) {
@@ -218,7 +318,7 @@ App = {
         var processId = parseInt($(event.target).data('id'));
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
-            const productPrice = web3.toWei(1, "ether");
+            const productPrice = web3.utils.toWei("1", "ether");
             console.log('productPrice',productPrice);
             return instance.sellItem(App.upc, App.productPrice, {from: App.metamaskAccountID});
         }).then(function(result) {
@@ -234,7 +334,7 @@ App = {
         var processId = parseInt($(event.target).data('id'));
 
         App.contracts.SupplyChain.deployed().then(function(instance) {
-            const walletValue = web3.toWei(3, "ether");
+            const walletValue = web3.utils.toWei("3", "ether");
             return instance.buyItem(App.upc, {from: App.metamaskAccountID, value: walletValue});
         }).then(function(result) {
             $("#ftc-item").text(result);

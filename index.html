@@ -17,6 +17,22 @@
     </div>
 
     <div id="ftc-harvest">
+        <h2>Access Control</h2>
+        <div class="form-group">
+            ID
+            <br>
+            <input class="input-field" type="text" id="userID" value="hola">
+            <select name="roles" id="roles">
+                <option value="farmer">Farmer</option>
+                <option value="distributor">Distributor</option>
+                <option value="retailer">Retailer</option>
+                <option value="consumer">Consumer</option>
+              </select>
+            <div class="button-div">
+                <button id="button" type="button" data-id="11">Add Role</button>
+            </div>
+            <label id="role-info"></label>
+        </div>
         <h2>Product Overview</h2>
         <div class="form-group">
             SKU
