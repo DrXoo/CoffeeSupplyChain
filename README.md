@@ -17,24 +17,24 @@ On tests, I have created a method to Initialize all contracts to reuse it on all
 ## Contracts addresses and transactions hashes
 All contracts are deployed on Rinkeby test network
 ### SupplyChain Contract 
-- transaction hash: 0x75a80ea330c8c6d4556ba3db902d80bd218b2b3a95327f27ce1aa191f4cca50f
-- Contract address - 0x4e66ACa27876eAE403aaa41d85303ceF8992837B
+- transaction hash: 0xb57d6fe46ec7e4bcc2f06139081ea550e84241e0f67347582d2e108506e54578
+- Contract address - 0x1A74E5E314D11B3363C0B534372f4fF529e966DF
 
 ### ConsumerRole Contract
-- transaction hash: 0x89b57b7f13ae5b85828abf59cf92c8821d3f743a184b4223e27b31d3bc295d78
-- contract address: 0xE5Cc955EE6f9a193A987EABe10629407FA015f56
+- transaction hash: 0xe0953cb41cade48fb022cdc2c77529e39c8baef8b1c7580b723d6195f696d92f
+- contract address: 0xBf4404C36C1504C09828a11e37AC3a3fDf0C85f8
 
 ### RetailerRole Contract
-- transaction hash: 0x394fa3c4d92f01a15dd9a88f7bcaaf0f43994650b831e56e684124e418c99790
-- contract address: 0x1fB74493bad2EBED1D2840a4124197a32e6b2204
+- transaction hash: 0xecfe449c3f3608388ea880c0433834d01bdea8b1c20aa771b458b8f2c6bcaa70
+- contract address: 0x64e74b6e67857C74b77D092A1B19ADd08271464b
 
 ### DistributorRole Contract
-- transaction hash: 0x48f78d93c407b6bb3e41efba13f4bc7da5abc4a5838e672ba9d0107fb51158a0
-- contract address: 0x6D77E04387f0ddA1be2975C5a0f6cE1e41dB2134
+- transaction hash: 0xc928f78c5196a69619683604a70de4ab8af169d5af2ad3d4745cb4bd86db4579
+- contract address: 0xB6e88CB8502C580E5723Bea4D0AC03a949f3460b
 
 ### FarmerRole Contract
-- transaction hash: 0xde9ed4a8311939c92c478a9695b3c20f017e61816a9ae568649caa1ef03c8af5
-- contract address: 0x4e37e2Fc54E2e9be3da5F1563477b9825795d4F9
+- transaction hash: 0xa428c6f778e7d7243b9f64460c958af6c1bcb80eb8d76c74022c4dbfa7f88c44
+- contract address: 0xbd2Af218284087B7ac2f0AEB473a23419c5f677e
 
 ### Account Used
 - account: 0x0B95092FBa46119d038Ade364346C35E6C146493
