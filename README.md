@@ -5,6 +5,10 @@
 - Solidity v0.5.16 (solc-js)
 - Node v16.14.0
 - Web3.js v1.5.3
+### Why not truffle 4.1.14?
+At the moment of installing version 4.1.14 I got several errors at compiling the project an I could not find the solution anywhere. After trying several solutions I gave up and installed instead version 5.5.6
+The precise error is:
+> TypeError [ERR_INVALID_REPL_INPUT]: Listeners for `uncaughtException` cannot be used in the REPL
 ## Libraries used
 - truffle-hdwallet-provider ^1.0.17
 ## Resources
@@ -14,6 +18,36 @@ As you can see on the Data model diagram I have one main contract *SupplyChainCo
 
 On tests, I have created a method to Initialize all contracts to reuse it on all tests. 
 
+## How to use this DApp
+As you saw on the diagrams there are several roles involved in this Dapp. The owner of the contract has all roles. However if you need to give access to one account a specific role you can do it trough the Access Control section on the website.
+
+### Give role credentials to an account
+On the *Access Control* section fill the _Input_ with the User Id to give the role. Select the role to give and click on **Add Role** button. The result will be displayed just below.
+
+Once the User Id has permissions he/she can continue using the DApp
+
+### Farmer options
+The farmer has its own section, *Farm Details*, on this you can type on the form the details of your farm like your name, your location and information, do not forget to enter also your farmer Id. Once all his information is filled you can click on the buttons below but before that consider taking a look to the diagrams to know the flow.
+
+The current flow is: 
+1. Harvest
+2. Process
+3. Pack
+4. For Sale  
+
+### Distributor options
+The distributor plays his role on the *Product Details* section. Here the distributor must fill his Id on the Distributor Id field and put a price to pay on _product price_ field. Then he can click on **Buy** button to buy the coffee from the farmer and on **Ship** button to ship it to the next role, the Retailer.
+
+### Retailer options
+The retailer also plays his role on the *Product Details* section. He need to add its Id on the _Retailer Id_ field and then click on **Receive** button to receive the shipped coffee from the distributor.
+
+### Consumer options
+Finally the consumer must enter its Id on _Consumer Id_ field inside *Product Details* section and click on **Purchase** to buy the coffee from the retailer.
+
+### See the product through all this process 
+On the section *Product Overview* any user can enter **SKU**, **UPC** and **Owner Id** fields and retreive information about the product to check it.
+
+To use this
 ## Contracts addresses and transactions hashes
 All contracts are deployed on Rinkeby test network
 ### SupplyChain Contract 
