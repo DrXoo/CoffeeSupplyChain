@@ -6,8 +6,9 @@
 - Node v16.14.0
 - Web3.js v1.5.3
 ### Why not truffle 4.1.14?
-At the moment of installing version 4.1.14 I got several errors at compiling the project an I could not find the solution anywhere. After trying several solutions I gave up and installed instead version 5.5.6
-The precise error is:
+At the moment of installing version 4.1.14 I got several errors at compiling the project an I could not find the solution anywhere. After trying several approaches I gave up and installed instead version 5.5.6
+
+The precise error was:
 > TypeError [ERR_INVALID_REPL_INPUT]: Listeners for `uncaughtException` cannot be used in the REPL
 ## Libraries used
 - truffle-hdwallet-provider ^1.0.17
@@ -30,10 +31,10 @@ Once the User Id has permissions he/she can continue using the DApp
 The farmer has its own section, *Farm Details*, on this you can type on the form the details of your farm like your name, your location and information, do not forget to enter also your farmer Id. Once all his information is filled you can click on the buttons below but before that consider taking a look to the diagrams to know the flow.
 
 The current flow is: 
-1. Harvest
-2. Process
-3. Pack
-4. For Sale  
+1. **Harvest**
+2. **Process**
+3. **Pack**
+4. **For Sale**  
 
 ### Distributor options
 The distributor plays his role on the *Product Details* section. Here the distributor must fill his Id on the Distributor Id field and put a price to pay on _product price_ field. Then he can click on **Buy** button to buy the coffee from the farmer and on **Ship** button to ship it to the next role, the Retailer.
@@ -47,7 +48,6 @@ Finally the consumer must enter its Id on _Consumer Id_ field inside *Product De
 ### See the product through all this process 
 On the section *Product Overview* any user can enter **SKU**, **UPC** and **Owner Id** fields and retreive information about the product to check it.
 
-To use this
 ## Contracts addresses and transactions hashes
 All contracts are deployed on Rinkeby test network
 ### SupplyChain Contract 
