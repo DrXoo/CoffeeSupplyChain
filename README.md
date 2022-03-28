@@ -1,17 +1,19 @@
 # Project Write-up
 ## Versions
 - Truffle v5.5.6 (core: 5.5.6)
+    - Truffle is a development environment for creating smart contracts. It helps us developers to have a centralized and useful way to develop, test and deploy contracts with ease
 - Ganache v^7.0.3
+    - Apart from being a key component in the Truffle Suite, Ganache provides us developers with a way to create a local blockchain where we can deploy and test our smart contracts without waiting for blocks to be mined on any test network or have fear of running out of eths.
 - Solidity v0.5.16 (solc-js)
+    - A compiler of solidity for Javascript. It is used in the truffle suit to compile your files
 - Node v16.14.0
+    - A Javascript running environment to build either frontend or backend applications. In our case we use it to serve the Frontend side of our DApp 
 - Web3.js v1.5.3
-### Why not truffle 4.1.14?
-At the moment of installing version 4.1.14 I got several errors at compiling the project an I could not find the solution anywhere. After trying several approaches I gave up and installed instead version 5.5.6
+    - Is a library that provides us developers with a way to interact with any ethereum node (local or remote). It has many utilities, from creating contracts from the ABI to read information from accounts and more. 
 
-The precise error was:
-> TypeError [ERR_INVALID_REPL_INPUT]: Listeners for `uncaughtException` cannot be used in the REPL
 ## Libraries used
 - truffle-hdwallet-provider ^1.0.17
+    - Is a NPM package to helps us to configure network connection to ethereum through a provider (Infura in our case).
 ## Resources
 - Diagrams are located on */docs* folder
 ## Code considerations
